@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Chip } from "react-native-paper";
 import { COLORS } from "../common/colors";
 
@@ -7,7 +7,11 @@ const filters = ["All Items", "Low Stock", "Category", "Price"];
 
 const InventoryFilters = ({ active, onChange = () => {} }) => {
   return (
-    <View style={styles.row}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.row}
+    >
       {filters.map((label) => {
         const selected = active === label;
         return (
@@ -22,7 +26,7 @@ const InventoryFilters = ({ active, onChange = () => {} }) => {
           </Chip>
         );
       })}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -31,12 +35,11 @@ export default InventoryFilters;
 const styles = StyleSheet.create({
   row: {
     marginTop: 12,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
+    paddingRight: 8,
   },
   chip: {
     backgroundColor: COLORS.surface,
+    marginRight: 8,
   },
   chipActive: {
     backgroundColor: COLORS.text,
