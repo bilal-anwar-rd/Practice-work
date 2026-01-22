@@ -1,14 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from "react";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { MD3LightTheme, PaperProvider } from "react-native-paper";
 
-const _layout = () => {
+const theme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: "#0D3B66",
+    secondary: "#F4D35E",
+    tertiary: "#EE964B",
+    background: "#F7F1E3",
+    surface: "#FDFBF7",
+  },
+};
+
+const RootLayout = () => {
   return (
-    <View>
-      <Text>_layout</Text>
-    </View>
-  )
-}
+    <PaperProvider theme={theme}>
+      <StatusBar style="dark" />
+      <Stack screenOptions={{ headerShown: false }} />
+    </PaperProvider>
+  );
+};
 
-export default _layout
-
-const styles = StyleSheet.create({})
+export default RootLayout;
