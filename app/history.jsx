@@ -119,6 +119,10 @@ const HistoryScreen = () => {
       router.replace("/");
       return;
     }
+    if (tab === "Settings") {
+      router.replace("/settings");
+      return;
+    }
     if (tab === "Inventory") {
       router.replace("/inventory");
       return;

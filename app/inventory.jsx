@@ -101,6 +101,10 @@ const InventoryScreen = () => {
       router.replace("/");
       return;
     }
+    if (tab === "Settings") {
+      router.replace("/settings");
+      return;
+    }
     if (tab === "Inventory") {
       return;
     }

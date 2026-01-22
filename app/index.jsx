@@ -39,6 +39,10 @@ const HomeScreen = () => {
       router.push("/inventory");
       return;
     }
+    if (tab === "Settings") {
+      router.push("/settings");
+      return;
+    }
     if (tab === "Home") {
       return;
     }
