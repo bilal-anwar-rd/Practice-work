@@ -177,7 +177,9 @@ const styles = StyleSheet.create({
   fab: {
     position: "absolute",
     right: 24,
-    bottom: 84,
+    bottom: 104,
     backgroundColor: COLORS.primary,
+    zIndex: 5,
+    elevation: 6,
   },
 });
