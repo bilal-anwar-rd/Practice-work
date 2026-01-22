@@ -13,7 +13,7 @@ const BAR_COLORS = {
 const BottomBar = ({ active = "Home", onTabPress = () => {} }) => {
   const items = [
     { key: "Home", icon: "home", label: "Home" },
-    { key: "Items", icon: "view-grid-outline", label: "Items" },
+    { key: "Inventory", icon: "view-grid-outline", label: "Inventory" },
     { key: "History", icon: "history", label: "History" },
     { key: "Settings", icon: "cog-outline", label: "Settings" },
   ];

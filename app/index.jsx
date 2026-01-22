@@ -24,6 +24,10 @@ const HomeScreen = () => {
       router.push("/history");
       return;
     }
+    if (tab === "Inventory") {
+      router.push("/inventory");
+      return;
+    }
     if (tab === "Home") {
       return;
     }
