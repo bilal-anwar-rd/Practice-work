@@ -19,6 +19,17 @@ const HomeScreen = () => {
   const showToast = (message) => {
     setSnackbar({ visible: true, message });
   };
+  const handleQuickActionPress = (label) => {
+    if (label === "Customers") {
+      router.push("/customers");
+      return;
+    }
+    if (label === "Inventory") {
+      router.push("/inventory");
+      return;
+    }
+    showToast(label);
+  };
   const handleTabPress = (tab) => {
     if (tab === "History") {
       router.push("/history");
@@ -63,7 +74,7 @@ const HomeScreen = () => {
         <PrimaryAction onPress={() => showToast("New Sale")} />
         <QuickActions
           containerWidth={width - 40}
-          onActionPress={(label) => showToast(label)}
+          onActionPress={handleQuickActionPress}
           onEditPress={() => showToast("Edit Quick Actions")}
         />
         <ActivityCard

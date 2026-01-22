@@ -133,7 +133,7 @@ const InventoryScreen = () => {
             stockLabel={item.stockLabel}
             stockColor={item.stockColor}
             units={item.units}
-            onPress={() => showToast(item.name)}
+            onPress={() => router.push("/product")}
           />
         ))}
       </ScrollView>
@@ -141,7 +141,7 @@ const InventoryScreen = () => {
       <FAB
         icon="plus"
         style={styles.fab}
-        onPress={() => showToast("Add Item")}
+        onPress={() => router.push("/product-add")}
         color="#FFFFFF"
       />
 
