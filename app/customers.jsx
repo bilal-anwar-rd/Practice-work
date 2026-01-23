@@ -119,7 +119,7 @@ const CustomersScreen = () => {
           contentStyle={styles.addButtonContent}
           labelStyle={styles.addButtonLabel}
           buttonColor={COLORS.primary}
-          onPress={() => showToast("Add Customer")}
+          onPress={() => router.push("/customer-add")}
         >
           Add Customer
         </Button>
@@ -140,7 +140,7 @@ const CustomersScreen = () => {
             metricLabel={customer.metricLabel}
             metricColors={customer.metricColors}
             avatar={customer.avatar}
-            onPress={() => showToast(customer.name)}
+            onPress={() => router.push("/customer-detail")}
           />
         ))}
 
