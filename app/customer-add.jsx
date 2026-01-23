@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Appbar, Button, Icon, Snackbar, Text, TextInput } from "react-native-paper";
+import { Appbar, Icon, Snackbar, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
-
-const INPUT_RADIUS = 12;
+import { InputField, UIButton } from "./components/common/ui";
 
 const CustomerAddScreen = () => {
   const router = useRouter();
@@ -56,66 +55,46 @@ const CustomerAddScreen = () => {
         <View style={styles.row}>
           <View style={[styles.col, styles.colLeft]}>
             <Text style={styles.label}>FIRST NAME</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={firstName}
               onChangeText={setFirstName}
               placeholder="e.g. John"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={styles.input}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
           <View style={styles.col}>
             <Text style={styles.label}>LAST NAME</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={lastName}
               onChangeText={setLastName}
               placeholder="e.g. Doe"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={styles.input}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
         </View>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>PHONE NUMBER</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={phone}
             onChangeText={setPhone}
             placeholder="(555) 000-0000"
             keyboardType="phone-pad"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="phone-outline" />}
+            leftIcon="phone-outline"
           />
         </View>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>EMAIL ADDRESS</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={email}
             onChangeText={setEmail}
             placeholder="john.doe@example.com"
             keyboardType="email-address"
             autoCapitalize="none"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="email-outline" />}
+            leftIcon="email-outline"
           />
         </View>
 
@@ -124,35 +103,26 @@ const CustomerAddScreen = () => {
             <Text style={styles.label}>ADDRESS</Text>
             <Text style={styles.optional}>OPTIONAL</Text>
           </View>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={address}
             onChangeText={setAddress}
             placeholder="Street, City, State, ZIP"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="map-marker-outline" />}
+            leftIcon="map-marker-outline"
           />
         </View>
 
         <View style={styles.actions}>
-          <Button
-            mode="contained"
-            buttonColor={COLORS.primary}
+          <UIButton
             style={styles.saveButton}
-            contentStyle={styles.saveContent}
-            labelStyle={styles.saveLabel}
             onPress={handleSave}
             icon="check-circle-outline"
           >
             Save Customer
-          </Button>
-          <Button mode="text" onPress={() => router.back()} textColor={COLORS.muted}>
+          </UIButton>
+          <UIButton variant="ghost" onPress={() => router.back()}>
             Cancel
-          </Button>
+          </UIButton>
         </View>
       </ScrollView>
 
@@ -268,19 +238,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     height: 56,
   },
-  inputOutline: {
-    borderRadius: INPUT_RADIUS,
-  },
   actions: {
     marginTop: 20,
   },
   saveButton: {
     borderRadius: 14,
-  },
-  saveContent: {
-    height: 54,
-  },
-  saveLabel: {
-    fontWeight: "700",
   },
 });

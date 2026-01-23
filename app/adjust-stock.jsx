@@ -5,20 +5,17 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  Modal,
-  Pressable,
 } from "react-native";
 import {
   Appbar,
   Avatar,
-  Button,
-  Icon,
   Snackbar,
   Surface,
   Text,
 } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
+import { Dropdown, UIButton } from "./components/common/ui";
 
 const product = {
   name: "Vintage Leather Satchel",
@@ -42,56 +39,6 @@ const keypadRows = [
   ["7", "8", "9"],
   ["", "0", "back"],
 ];
-
-const ReasonSelect = ({ value, options, onSelect }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <TouchableOpacity
-        style={styles.reasonField}
-        activeOpacity={0.9}
-        onPress={() => setOpen(true)}
-      >
-        <Text style={styles.reasonValue}>{value}</Text>
-        <Icon source={open ? "chevron-up" : "chevron-down"} size={22} color={COLORS.muted} />
-      </TouchableOpacity>
-
-      <Modal
-        visible={open}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setOpen(false)}
-      >
-        <Pressable style={styles.modalScrim} onPress={() => setOpen(false)} />
-        <View style={styles.modalContainer} pointerEvents="box-none">
-          <Surface style={styles.sheet}>
-            <ScrollView
-              style={{ maxHeight: 360 }}
-              contentContainerStyle={styles.sheetContent}
-              keyboardShouldPersistTaps="handled"
-            >
-              {options.map((item) => (
-                <TouchableOpacity
-                  key={item}
-                  style={styles.sheetRow}
-                  onPress={() => {
-                    onSelect(item);
-                    setOpen(false);
-                  }}
-                >
-                  <Text style={styles.sheetText}>{item}</Text>
-                  {item === value ? (
-                    <Icon source="check" size={18} color={COLORS.primary} />
-                  ) : null}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </Surface>
-        </View>
-      </Modal>
-    </>
-  );
-};
 
 const ModeToggle = ({ mode, onChange }) => (
   <Surface elevation={1} style={styles.modeWrap}>
@@ -191,7 +138,12 @@ const AdjustStockScreen = () => {
 
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>REASON FOR ADJUSTMENT</Text>
-          <ReasonSelect value={reason} options={reasons} onSelect={setReason} />
+          <Dropdown
+            value={reason}
+            options={reasons}
+            onSelect={setReason}
+            fieldStyle={styles.reasonField}
+          />
         </View>
 
         <View style={styles.keypad}>
@@ -222,16 +174,12 @@ const AdjustStockScreen = () => {
       </ScrollView>
 
       <Surface elevation={8} style={styles.bottomBar}>
-        <Button
-          mode="contained"
+        <UIButton
           style={styles.confirmButton}
-          contentStyle={styles.confirmContent}
-          labelStyle={styles.confirmLabel}
-          buttonColor={COLORS.primary}
           onPress={confirm}
         >
           Confirm Adjustment
-        </Button>
+        </UIButton>
       </Surface>
 
       <Snackbar
@@ -354,39 +302,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  reasonValue: {
-    color: COLORS.text,
-    fontWeight: "600",
-  },
-  modalScrim: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.12)",
-  },
-  modalContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
-  },
-  sheet: {
-    marginHorizontal: 14,
-    marginBottom: 18,
-    borderRadius: 16,
-    backgroundColor: COLORS.surface,
-    elevation: 10,
-  },
-  sheetContent: {
-    paddingVertical: 8,
-  },
-  sheetRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  sheetText: {
-    color: COLORS.text,
-    fontWeight: "600",
-  },
   keypad: {
     marginTop: 24,
   },
@@ -420,12 +335,5 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     borderRadius: 14,
-  },
-  confirmContent: {
-    height: 54,
-  },
-  confirmLabel: {
-    fontWeight: "700",
-    letterSpacing: 0.4,
   },
 });

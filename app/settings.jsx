@@ -35,7 +35,7 @@ const sections = [
       {
         key: "subscription-plan",
         title: "Subscription Plan",
-        subtitle: "Pro Plan • Expires in 12 days",
+        subtitle: "Pro Plan - Expires in 12 days",
         subtitleColor: "#E86F1E",
         icon: "monitor-dashboard",
         tint: COLORS.orangeTint,
@@ -198,7 +198,11 @@ const SettingsScreen = () => {
                 icon={item.icon}
                 tint={item.tint}
                 iconColor={item.iconColor}
-                onPress={() => {}}
+                onPress={() => {
+                  if (item.key === "help") {
+                    router.push("/componentsview");
+                  }
+                }}
               />
             ))}
           </View>

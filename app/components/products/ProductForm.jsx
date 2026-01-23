@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
   Image,
-  Modal,
-  Pressable,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -10,14 +8,17 @@ import {
 } from "react-native";
 import {
   Avatar,
-  Button,
-  Icon,
   Surface,
-  Switch,
   Text,
-  TextInput,
 } from "react-native-paper";
 import { COLORS } from "../common/colors";
+import {
+  Dropdown,
+  InputField,
+  TextArea,
+  UIButton,
+  UISwitch,
+} from "../common/ui";
 
 const categoryOptions = [
   "Accessories",
@@ -27,59 +28,6 @@ const categoryOptions = [
   "Home",
   "Stationery",
 ];
-
-const INPUT_RADIUS = 12;
-
-const SelectField = ({ label, value, options, onSelect, containerStyle }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <View style={[styles.fieldBlock, containerStyle]}>
-      <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity
-        style={styles.selectField}
-        activeOpacity={0.9}
-        onPress={() => setOpen(true)}
-      >
-        <Text style={styles.selectValue}>{value || "Select"}</Text>
-        <Icon source={open ? "chevron-up" : "chevron-down"} size={20} color={COLORS.muted} />
-      </TouchableOpacity>
-
-      <Modal
-        visible={open}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setOpen(false)}
-      >
-        <Pressable style={styles.modalScrim} onPress={() => setOpen(false)} />
-        <View style={styles.modalContainer} pointerEvents="box-none">
-          <Surface style={styles.sheet}>
-            <ScrollView
-              style={{ maxHeight: 340 }}
-              contentContainerStyle={styles.sheetContent}
-              keyboardShouldPersistTaps="handled"
-            >
-              {options.map((item) => (
-                <TouchableOpacity
-                  key={item}
-                  style={styles.sheetRow}
-                  onPress={() => {
-                    onSelect(item);
-                    setOpen(false);
-                  }}
-                >
-                  <Text style={styles.sheetText}>{item}</Text>
-                  {item === value ? (
-                    <Icon source="check" size={18} color={COLORS.primary} />
-                  ) : null}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </Surface>
-        </View>
-      </Modal>
-    </View>
-  );
-};
 
 const ProductForm = ({
   mode = "edit",
@@ -145,43 +93,40 @@ const ProductForm = ({
             />
             <Text style={styles.uploadTitle}>Tap to Upload</Text>
             <Text style={styles.uploadHint}>Upload product image (JPEG, PNG)</Text>
-            <Button mode="contained" style={styles.uploadButton} buttonColor={COLORS.primary}>
+            <UIButton size="md" style={styles.uploadButton}>
               Select Image
-            </Button>
+            </UIButton>
           </TouchableOpacity>
         </Surface>
       ) : (
         <Surface elevation={1} style={styles.heroCard}>
           <Image source={{ uri: heroImage }} style={styles.hero} />
-          <Button
+          <UIButton
+            variant="secondary"
+            buttonColor="rgba(0,0,0,0.72)"
+            textColor="white"
             icon="camera-outline"
-            mode="contained-tonal"
             style={styles.heroButton}
             onPress={() => {}}
           >
             Change Photo
-          </Button>
+          </UIButton>
         </Surface>
       )}
 
       <View style={styles.fieldBlock}>
         <Text style={styles.label}>PRODUCT NAME</Text>
-        <TextInput
-          mode="outlined"
+        <InputField
           value={name}
           onChangeText={setName}
           placeholder="e.g. Organic Coffee Beans"
-          outlineColor={COLORS.border}
-          activeOutlineColor={COLORS.primary}
           style={[styles.input, styles.inputLg]}
-          outlineStyle={styles.inputOutline}
-          theme={{ roundness: INPUT_RADIUS }}
         />
       </View>
 
       <View style={styles.row}>
         <View style={[styles.col, styles.colLeft, styles.inlineFieldBlock]}>
-          <SelectField
+          <Dropdown
             label="CATEGORY"
             value={category}
             options={categoryOptions}
@@ -191,34 +136,22 @@ const ProductForm = ({
         </View>
         <View style={[styles.col, styles.inlineFieldBlock]}>
           <Text style={styles.label}>SKU</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={sku}
             onChangeText={setSku}
             placeholder="e.g. BEAN-001"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={[styles.input, styles.inputLg]}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
           />
         </View>
       </View>
 
       <View style={styles.fieldBlock}>
         <Text style={styles.label}>DESCRIPTION</Text>
-        <TextInput
-          mode="outlined"
-          multiline
-          numberOfLines={4}
+        <TextArea
           value={description}
           onChangeText={setDescription}
           placeholder="Enter product details..."
-          outlineColor={COLORS.border}
-          activeOutlineColor={COLORS.primary}
           style={[styles.input, styles.textarea]}
-          outlineStyle={styles.inputOutline}
-          theme={{ roundness: INPUT_RADIUS }}
         />
       </View>
 
@@ -227,61 +160,42 @@ const ProductForm = ({
         <View style={styles.row}>
           <View style={[styles.col, styles.colLeft]}>
             <Text style={styles.label}>Cost Price</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={costPrice}
             onChangeText={setCostPrice}
               placeholder="$ 0.00"
               keyboardType="decimal-pad"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={[styles.input, styles.inputLg]}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
           <View style={styles.col}>
             <Text style={styles.label}>Selling Price</Text>
-            <TextInput
-            mode="outlined"
+            <InputField
             value={sellingPrice}
             onChangeText={setSellingPrice}
               placeholder="$ 0.00"
               keyboardType="decimal-pad"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={[styles.input, styles.inputLg]}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
         </View>
         <View style={[styles.row, styles.rowGapSmall]}>
           <View style={[styles.col, styles.colLeft]}>
             <Text style={styles.label}>Tax Rate (%)</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={taxRate}
             onChangeText={setTaxRate}
               placeholder="e.g. 5"
               keyboardType="decimal-pad"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={[styles.input, styles.inputLg]}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
           <View style={styles.col}>
             <Text style={styles.label}>Margin</Text>
-            <TextInput
-            mode="outlined"
+            <InputField
               value={margin}
               editable={false}
-              outlineColor={COLORS.border}
               style={[styles.input, styles.inputLg]}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
         </View>
@@ -293,54 +207,45 @@ const ProductForm = ({
             <Text style={styles.label}>Track Stock</Text>
             <Text style={styles.trackHint}>Manage quantities and alerts</Text>
           </View>
-          <Switch value={trackStock} onValueChange={setTrackStock} />
+          <UISwitch value={trackStock} onValueChange={setTrackStock} />
         </View>
         {isAddMode ? (
           <View style={styles.fieldBlock}>
             <Text style={styles.label}>Opening Stock</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={openingStock}
             onChangeText={setOpeningStock}
               placeholder="0"
               keyboardType="numeric"
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={[styles.input, styles.inputLg]}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
         ) : null}
       </Surface>
 
       {onDelete && !isAddMode ? (
-        <Button
-          mode="text"
+        <UIButton
+          variant="ghost"
           textColor="#D34545"
           style={styles.deleteButton}
           icon="delete-outline"
           onPress={onDelete}
         >
           Delete Product
-        </Button>
+        </UIButton>
       ) : null}
 
       <View style={styles.actions}>
-        <Button
-          mode="contained"
-          buttonColor={COLORS.primary}
+        <UIButton
           style={styles.saveButton}
-          contentStyle={styles.saveContent}
-          labelStyle={styles.saveLabel}
           onPress={handleSubmit}
         >
           {isAddMode ? "Save Product" : "Save Changes"}
-        </Button>
+        </UIButton>
         {isAddMode ? (
-          <Button mode="text" onPress={onCancel} textColor={COLORS.muted}>
+          <UIButton variant="ghost" onPress={onCancel}>
             Cancel
-          </Button>
+          </UIButton>
         ) : null}
       </View>
     </ScrollView>
@@ -416,9 +321,6 @@ const styles = StyleSheet.create({
   inputLg: {
     height: 56,
   },
-  inputOutline: {
-    borderRadius: INPUT_RADIUS,
-  },
   textarea: {
     minHeight: 100,
   },
@@ -434,21 +336,6 @@ const styles = StyleSheet.create({
   },
   colLeft: {
     marginRight: 12,
-  },
-  selectField: {
-    height: 56,
-    borderRadius: INPUT_RADIUS,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.surface,
-    paddingHorizontal: 12,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  selectValue: {
-    color: COLORS.text,
-    fontWeight: "600",
   },
   card: {
     marginTop: 16,
@@ -484,34 +371,5 @@ const styles = StyleSheet.create({
   },
   saveLabel: {
     fontWeight: "700",
-  },
-  modalScrim: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.12)",
-  },
-  modalContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
-  },
-  sheet: {
-    marginHorizontal: 14,
-    marginBottom: 18,
-    borderRadius: 16,
-    backgroundColor: COLORS.surface,
-    elevation: 10,
-  },
-  sheetContent: {
-    paddingVertical: 8,
-  },
-  sheetRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  sheetText: {
-    color: COLORS.text,
-    fontWeight: "600",
   },
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Chip } from "react-native-paper";
-import { COLORS } from "../common/colors";
+import Badge from "../common/ui/Badge";
 
 const filters = ["All Items", "Low Stock", "Category", "Price"];
 
@@ -15,25 +14,14 @@ const InventoryFilters = ({ active, onChange = () => {} }) => {
       {filters.map((label) => {
         const selected = active === label;
         return (
-          <Chip
+          <Badge
             key={label}
+            label={label}
             selected={selected}
-            mode={selected ? "flat" : "outlined"}
-            showSelectedCheck={false}
-            theme={{ roundness: 17 }}
             onPress={() => onChange(label)}
-            style={[
-              styles.chip,
-              selected ? styles.chipActive : styles.chipInactive,
-            ]}
-            contentStyle={styles.chipContent}
-            textStyle={[
-              styles.chipText,
-              selected ? styles.chipTextActive : styles.chipTextInactive,
-            ]}
-          >
-            {label}
-          </Chip>
+            style={styles.chip}
+            textStyle={selected ? styles.chipTextActive : styles.chipTextInactive}
+          />
         );
       })}
     </ScrollView>
@@ -52,26 +40,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
     height: 34,
     borderRadius: 17,
-  },
-  chipContent: {
-    height: 34,
-    paddingHorizontal: 14,
-    paddingVertical: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  chipInactive: {
-    backgroundColor: COLORS.surface,
-    borderWidth: 1,
-    borderColor: "#DDE3EA",
-  },
-  chipActive: {
-    backgroundColor: "#0F151A",
-    borderColor: "#0F151A",
-  },
-  chipText: {
-    fontSize: 14,
-    fontWeight: "600",
   },
   chipTextInactive: {
     color: "#7A8693",

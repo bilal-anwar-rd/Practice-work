@@ -5,12 +5,13 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { Button, Searchbar, Snackbar, Text } from "react-native-paper";
+import { Searchbar, Snackbar, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
 import SectionHeader from "./components/common/SectionHeader";
 import CustomersHeader from "./components/customers/CustomersHeader";
 import CustomerListItem from "./components/customers/CustomerListItem";
+import { UIButton } from "./components/common/ui";
 
 const customerData = [
   {
@@ -112,17 +113,15 @@ const CustomersScreen = () => {
           inputStyle={styles.searchInput}
         />
 
-        <Button
+        <UIButton
           icon="account-plus"
-          mode="contained"
           style={styles.addButton}
           contentStyle={styles.addButtonContent}
           labelStyle={styles.addButtonLabel}
-          buttonColor={COLORS.primary}
           onPress={() => router.push("/customer-add")}
         >
           Add Customer
-        </Button>
+        </UIButton>
 
         <SectionHeader
           title="Recently Active"

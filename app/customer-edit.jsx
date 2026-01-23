@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Appbar, Button, Icon, Snackbar, Text, TextInput } from "react-native-paper";
+import { Appbar, Icon, Snackbar, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
-
-const INPUT_RADIUS = 12;
+import { InputField, UIButton } from "./components/common/ui";
 
 const CustomerEditScreen = () => {
   const router = useRouter();
@@ -41,100 +40,71 @@ const CustomerEditScreen = () => {
         <View style={styles.row}>
           <View style={[styles.col, styles.colLeft]}>
             <Text style={styles.label}>FIRST NAME</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={firstName}
               onChangeText={setFirstName}
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={styles.input}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
           <View style={styles.col}>
             <Text style={styles.label}>LAST NAME</Text>
-            <TextInput
-              mode="outlined"
+            <InputField
               value={lastName}
               onChangeText={setLastName}
-              outlineColor={COLORS.border}
-              activeOutlineColor={COLORS.primary}
               style={styles.input}
-              outlineStyle={styles.inputOutline}
-              theme={{ roundness: INPUT_RADIUS }}
             />
           </View>
         </View>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>PHONE NUMBER</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={phone}
             onChangeText={setPhone}
             keyboardType="phone-pad"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="phone-outline" />}
+            leftIcon="phone-outline"
           />
         </View>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>EMAIL ADDRESS</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="email-outline" />}
+            leftIcon="email-outline"
           />
         </View>
 
         <View style={styles.fieldBlock}>
           <Text style={styles.label}>ADDRESS</Text>
-          <TextInput
-            mode="outlined"
+          <InputField
             value={address}
             onChangeText={setAddress}
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
             style={styles.input}
-            outlineStyle={styles.inputOutline}
-            theme={{ roundness: INPUT_RADIUS }}
-            left={<TextInput.Icon icon="map-marker-outline" />}
+            leftIcon="map-marker-outline"
           />
         </View>
 
         <View style={styles.actions}>
-          <Button
-            mode="contained"
-            buttonColor={COLORS.primary}
+          <UIButton
             style={styles.saveButton}
-            contentStyle={styles.saveContent}
-            labelStyle={styles.saveLabel}
             onPress={() => showToast("Changes saved")}
             icon="check-circle-outline"
           >
             Save Changes
-          </Button>
-          <Button
-            mode="text"
+          </UIButton>
+          <UIButton
+            variant="ghost"
             onPress={() => showToast("Delete customer")}
             textColor="#D34545"
             icon="trash-can-outline"
           >
             Delete Customer
-          </Button>
+          </UIButton>
         </View>
       </ScrollView>
 
@@ -229,9 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     height: 56,
   },
-  inputOutline: {
-    borderRadius: INPUT_RADIUS,
-  },
   actions: {
     marginTop: 22,
     alignItems: "center",
@@ -239,11 +206,5 @@ const styles = StyleSheet.create({
   saveButton: {
     borderRadius: 14,
     alignSelf: "stretch",
-  },
-  saveContent: {
-    height: 54,
-  },
-  saveLabel: {
-    fontWeight: "700",
   },
 });

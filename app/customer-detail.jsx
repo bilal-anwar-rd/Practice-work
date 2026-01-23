@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Appbar, Button, Icon, Surface, Text } from "react-native-paper";
+import { Appbar, Icon, Surface, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
+import { UIButton } from "./components/common/ui";
 
 const CustomerDetailScreen = () => {
   const router = useRouter();
@@ -155,24 +156,22 @@ const CustomerDetailScreen = () => {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Button
-          mode="outlined"
+        <UIButton
+          variant="outline"
           style={styles.footerButton}
           textColor={COLORS.primary}
           icon="pencil"
           onPress={() => router.push("/customer-edit")}
         >
           Edit Profile
-        </Button>
-        <Button
-          mode="contained"
-          buttonColor={COLORS.primary}
+        </UIButton>
+        <UIButton
           style={[styles.footerButton, styles.footerPrimary]}
           icon="cart-outline"
           onPress={() => {}}
         >
           New Sale
-        </Button>
+        </UIButton>
       </View>
     </View>
   );
