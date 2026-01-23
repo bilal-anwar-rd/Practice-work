@@ -70,7 +70,7 @@ const ModeToggle = ({ mode, onChange }) => (
       <Text
         style={[
           styles.modeText,
-          { color: mode === "remove" ? "#D34545" : COLORS.muted },
+          { color: mode === "remove" ? COLORS.danger : COLORS.muted },
         ]}
       >
         Remove
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modeActive: {
-    backgroundColor: "#EAF6F8",
+    backgroundColor: COLORS.primaryTint,
   },
   modeInactive: {
     backgroundColor: COLORS.surface,
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   keyIcon: {
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
   },
   bottomBar: {
     position: "absolute",

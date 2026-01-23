@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     width: 54,
     height: 54,
     borderRadius: 12,
-    backgroundColor: "#E8EDF3",
+    backgroundColor: COLORS.neutralSoft2,
     marginRight: 12,
   },
   info: {

@@ -34,8 +34,16 @@ const customerData = [
     email: "jane.smith@email.com",
     status: "Last visit: Yesterday",
     metricValue: "540 pts",
-    metricColors: { bg: "#FFF2E0", value: "#C66A10", label: "#C66A10" },
-    avatar: { initials: "JS", bg: COLORS.orangeTint, textColor: "#C66A10" },
+    metricColors: {
+      bg: COLORS.warningTintAlt,
+      value: COLORS.warningDark,
+      label: COLORS.warningDark,
+    },
+    avatar: {
+      initials: "JS",
+      bg: COLORS.orangeTint,
+      textColor: COLORS.warningDark,
+    },
   },
   {
     id: "robert-chen",
@@ -57,8 +65,12 @@ const customerData = [
     email: "eleanor.lewis@email.com",
     status: "Last visit: 3 days ago",
     metricValue: "210 pts",
-    metricColors: { bg: COLORS.purpleTint, value: "#7A3DF0", label: "#7A3DF0" },
-    avatar: { initials: "EL", bg: COLORS.purpleTint, textColor: "#7A3DF0" },
+    metricColors: {
+      bg: COLORS.purpleTint,
+      value: COLORS.purple,
+      label: COLORS.purple,
+    },
+    avatar: { initials: "EL", bg: COLORS.purpleTint, textColor: COLORS.purple },
   },
   {
     id: "marcus-polo",

@@ -36,10 +36,10 @@ const sections = [
         key: "subscription-plan",
         title: "Subscription Plan",
         subtitle: "Pro Plan - Expires in 12 days",
-        subtitleColor: "#E86F1E",
+        subtitleColor: COLORS.warningDeep,
         icon: "monitor-dashboard",
         tint: COLORS.orangeTint,
-        iconColor: "#E86F1E",
+        iconColor: COLORS.warningDeep,
       },
     ],
   },
@@ -52,7 +52,7 @@ const sections = [
         subtitle: "Roles, permissions, schedules",
         icon: "account-group-outline",
         tint: COLORS.greenTint,
-        iconColor: "#1C9A6E",
+        iconColor: COLORS.successTeal,
       },
       {
         key: "printer",
@@ -60,7 +60,7 @@ const sections = [
         subtitle: "Epson TM-T88V (Connected)",
         icon: "printer-outline",
         tint: COLORS.purpleTint,
-        iconColor: "#7A3DF0",
+        iconColor: COLORS.purple,
       },
     ],
   },
@@ -73,7 +73,7 @@ const sections = [
         subtitle: "Set alerts for your team",
         icon: "bell-outline",
         tint: COLORS.orangeTint,
-        iconColor: "#E86F1E",
+        iconColor: COLORS.warningDeep,
       },
       {
         key: "help",
@@ -214,7 +214,7 @@ const SettingsScreen = () => {
               <Avatar.Icon
                 size={28}
                 icon="logout"
-                color="#D34545"
+                color={COLORS.danger}
                 style={styles.logoutIcon}
               />
               <Text style={styles.logoutText}>Log Out</Text>
@@ -251,9 +251,9 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 12,
     marginTop: 8,
-    backgroundColor: "#F5F7FD",
+    backgroundColor: COLORS.backgroundAlt,
     borderWidth: 1,
-    borderColor: "#E5ECF7",
+    borderColor: COLORS.borderAlt,
   },
   profileRow: {
     flexDirection: "row",
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: -4,
     bottom: -4,
-    backgroundColor: "#E8F1F8",
+    backgroundColor: COLORS.infoTint,
   },
   profileInfo: {
     flex: 1,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   profileEdit: {
-    backgroundColor: "#E8F1F8",
+    backgroundColor: COLORS.infoTint,
   },
   section: {
     marginTop: 22,
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   itemIcon: {
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
   },
   itemInfo: {
     flex: 1,
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   chevron: {
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
   },
   logoutCard: {
     borderRadius: 14,
@@ -346,11 +346,11 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   logoutIcon: {
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
     marginRight: 8,
   },
   logoutText: {
-    color: "#D34545",
+    color: COLORS.danger,
     fontWeight: "700",
   },
   version: {

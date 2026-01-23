@@ -22,7 +22,7 @@ const items = [
     sku: "COF-001",
     price: "$18.50",
     stockLabel: "Low Stock",
-    stockColor: { background: "#FFF1DA", text: "#C66A10" },
+    stockColor: { background: COLORS.warningTintSoft, text: COLORS.warningDark },
     units: 4,
   },
   {
@@ -31,7 +31,7 @@ const items = [
     sku: "MUG-029",
     price: "$12.00",
     stockLabel: "In Stock",
-    stockColor: { background: "#E6F6EE", text: "#1B8F5D" },
+    stockColor: { background: COLORS.successTint, text: COLORS.successDark },
     units: 45,
   },
   {
@@ -40,7 +40,7 @@ const items = [
     sku: "TEA-104",
     price: "$9.00",
     stockLabel: "In Stock",
-    stockColor: { background: "#E6F6EE", text: "#1B8F5D" },
+    stockColor: { background: COLORS.successTint, text: COLORS.successDark },
     units: 20,
   },
   {
@@ -49,7 +49,7 @@ const items = [
     sku: "FRU-003",
     price: "$1.20",
     stockLabel: "Out of Stock",
-    stockColor: { background: "#FDE8E8", text: "#D34545" },
+    stockColor: { background: COLORS.dangerTint, text: COLORS.danger },
     units: 0,
   },
   {
@@ -58,7 +58,7 @@ const items = [
     sku: "BEV-201",
     price: "$5.50",
     stockLabel: "In Stock",
-    stockColor: { background: "#E6F6EE", text: "#1B8F5D" },
+    stockColor: { background: COLORS.successTint, text: COLORS.successDark },
     units: 120,
   },
 ];
@@ -146,7 +146,7 @@ const InventoryScreen = () => {
         icon="plus"
         style={styles.fab}
         onPress={() => router.push("/product-add")}
-        color="#FFFFFF"
+        color={COLORS.white}
       />
 
       <BottomBar active="Inventory" onTabPress={handleTabPress} />

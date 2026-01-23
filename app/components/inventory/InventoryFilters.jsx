@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import Badge from "../common/ui/Badge";
+import { COLORS } from "../common/colors";
 
 const filters = ["All Items", "Low Stock", "Category", "Price"];
 
@@ -42,10 +43,10 @@ const styles = StyleSheet.create({
     borderRadius: 17,
   },
   chipTextInactive: {
-    color: "#7A8693",
+    color: COLORS.mutedAlt,
   },
   chipTextActive: {
-    color: "#FFFFFF",
+    color: COLORS.white,
     fontWeight: "700",
   },
 });

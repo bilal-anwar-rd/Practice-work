@@ -2,16 +2,17 @@ import React from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { MD3LightTheme, PaperProvider } from "react-native-paper";
+import { COLORS } from "./components/common/colors";
 
 const theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primary: "#0D3B66",
-    secondary: "#F4D35E",
-    tertiary: "#EE964B",
-    background: "#F7F1E3",
-    surface: "#FDFBF7",
+    primary: COLORS.brandPrimary,
+    secondary: COLORS.brandSecondary,
+    tertiary: COLORS.brandTertiary,
+    background: COLORS.backgroundWarm,
+    surface: COLORS.surfaceWarm,
   },
 };
 

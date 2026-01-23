@@ -17,21 +17,21 @@ const quickActions = [
     label: "Inventory",
     icon: "archive-outline",
     tint: COLORS.orangeTint,
-    color: "#E86F1E",
+    color: COLORS.warningDeep,
   },
   {
     key: "customers",
     label: "Customers",
     icon: "account-group-outline",
     tint: COLORS.purpleTint,
-    color: "#7A3DF0",
+    color: COLORS.purple,
   },
   {
     key: "reports",
     label: "Reports",
     icon: "chart-bar",
     tint: COLORS.greenTint,
-    color: "#1C9A6E",
+    color: COLORS.successTeal,
   },
 ];
 

@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   scrim: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0,0,0,0.12)",
+    backgroundColor: COLORS.scrim,
   },
   modal: {
     ...StyleSheet.absoluteFillObject,

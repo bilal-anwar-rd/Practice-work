@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
   },
   cardLeft: {
     marginRight: 12,
-    backgroundColor: "#EAF6F8",
+    backgroundColor: COLORS.primaryTint,
   },
   cardRight: {
-    backgroundColor: "#FFF3E5",
+    backgroundColor: COLORS.warningSoft,
   },
   title: {
     color: COLORS.text,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   mutedWarn: {
-    color: "#C66A10",
+    color: COLORS.warningDark,
     marginBottom: 4,
   },
 });

@@ -103,8 +103,8 @@ const ProductForm = ({
           <Image source={{ uri: heroImage }} style={styles.hero} />
           <UIButton
             variant="secondary"
-            buttonColor="rgba(0,0,0,0.72)"
-            textColor="white"
+            buttonColor={COLORS.overlayDark}
+            textColor={COLORS.white}
             icon="camera-outline"
             style={styles.heroButton}
             onPress={() => {}}
@@ -226,7 +226,7 @@ const ProductForm = ({
       {onDelete && !isAddMode ? (
         <UIButton
           variant="ghost"
-          textColor="#D34545"
+          textColor={COLORS.danger}
           style={styles.deleteButton}
           icon="delete-outline"
           onPress={onDelete}
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     bottom: 12,
     alignSelf: "center",
     borderRadius: 10,
-    backgroundColor: "rgba(0,0,0,0.72)",
+    backgroundColor: COLORS.overlayDark,
   },
   uploadCard: {
     borderRadius: 12,

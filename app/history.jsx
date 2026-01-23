@@ -34,7 +34,7 @@ const historySections = [
         amount: "$12.50",
         icon: "cart-outline",
         tint: COLORS.orangeTint,
-        iconColor: "#E86F1E",
+        iconColor: COLORS.warningDeep,
       },
       {
         id: "1022",
@@ -57,7 +57,7 @@ const historySections = [
         amount: "$115.40",
         icon: "cart-outline",
         tint: COLORS.orangeTint,
-        iconColor: "#E86F1E",
+        iconColor: COLORS.warningDeep,
       },
       {
         id: "1020",
@@ -75,7 +75,7 @@ const historySections = [
         amount: "-$15.00",
         icon: "alert-circle-outline",
         tint: COLORS.purpleTint,
-        iconColor: "#7A3DF0",
+        iconColor: COLORS.purple,
       },
       {
         id: "1018",

@@ -29,7 +29,7 @@ const CustomerEditScreen = () => {
           <View style={styles.avatarShell}>
             <Text style={styles.avatarText}>RC</Text>
             <View style={styles.cameraBadge}>
-              <Icon source="camera" size={14} color="white" />
+              <Icon source="camera" size={14} color={COLORS.white} />
             </View>
           </View>
           <TouchableOpacity activeOpacity={0.8} onPress={() => showToast("Change photo")}>
@@ -100,7 +100,7 @@ const CustomerEditScreen = () => {
           <UIButton
             variant="ghost"
             onPress={() => showToast("Delete customer")}
-            textColor="#D34545"
+            textColor={COLORS.danger}
             icon="trash-can-outline"
           >
             Delete Customer
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: 48,
-    backgroundColor: "#DFF1F1",
+    backgroundColor: COLORS.primarySoft,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   status: {
-    color: "#9AA3AD",
+    color: COLORS.mutedLight,
   },
   statusActive: {
     color: COLORS.primary,

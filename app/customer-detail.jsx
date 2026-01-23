@@ -22,7 +22,7 @@ const CustomerDetailScreen = () => {
           <View style={styles.avatarShell}>
             <Text style={styles.avatarText}>RC</Text>
             <View style={styles.avatarBadge}>
-              <Icon source="cog" size={14} color="white" />
+              <Icon source="cog" size={14} color={COLORS.white} />
             </View>
           </View>
           <Text style={styles.name}>Robert Chen</Text>
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     width: 88,
     height: 88,
     borderRadius: 44,
-    backgroundColor: "#DFF1F1",
+    backgroundColor: COLORS.primarySoft,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
   metricValueOrange: {
-    color: "#F57C00",
+    color: COLORS.warning,
     fontSize: 18,
     fontWeight: "800",
   },
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     marginTop: 18,
     padding: 4,
     borderRadius: 16,
-    backgroundColor: "#EEF1F5",
+    backgroundColor: COLORS.neutralTint,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   },
   tabPillActive: {
     backgroundColor: COLORS.surface,
-    shadowColor: "rgba(0,0,0,0.08)",
+    shadowColor: COLORS.shadowLight,
     shadowOpacity: 1,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 10,
-    backgroundColor: "#EFF2F6",
+    backgroundColor: COLORS.neutralSoft,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   detailLabel: {
     fontSize: 11,
-    color: "#9AA3AD",
+    color: COLORS.mutedLight,
     letterSpacing: 0.6,
   },
   detailValue: {

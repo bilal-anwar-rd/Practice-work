@@ -7,7 +7,7 @@ const VARIANTS = {
   primary: {
     mode: "contained",
     buttonColor: COLORS.primary,
-    textColor: "white",
+    textColor: COLORS.white,
     style: null,
   },
   secondary: {
@@ -18,20 +18,20 @@ const VARIANTS = {
   },
   outline: {
     mode: "outlined",
-    buttonColor: "transparent",
+    buttonColor: COLORS.transparent,
     textColor: COLORS.text,
     style: { borderColor: COLORS.border },
   },
   ghost: {
     mode: "text",
-    buttonColor: "transparent",
+    buttonColor: COLORS.transparent,
     textColor: COLORS.muted,
     style: null,
   },
   danger: {
     mode: "contained",
-    buttonColor: "#D34545",
-    textColor: "white",
+    buttonColor: COLORS.danger,
+    textColor: COLORS.white,
     style: null,
   },
 };

@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
     color: COLORS.text,
   },
   negativeAmount: {
-    color: "#E54848",
+    color: COLORS.dangerBright,
   },
 });

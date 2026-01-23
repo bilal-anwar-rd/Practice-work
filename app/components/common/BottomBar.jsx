@@ -7,7 +7,7 @@ const BAR_COLORS = {
   background: COLORS.surface,
   active: COLORS.primary,
   inactive: COLORS.muted,
-  activePill: "#E9F2FB",
+  activePill: COLORS.blueTint,
 };
 
 const BottomBar = ({ active = "Home", onTabPress = () => {} }) => {
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: BAR_COLORS.background,
     borderRadius: 24,
-    shadowColor: "#000000",
+    shadowColor: COLORS.shadow,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.12,
     shadowRadius: 16,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   iconWrapActive: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: COLORS.white,
   },
   label: {
     fontSize: 12,

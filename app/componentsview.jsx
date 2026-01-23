@@ -13,6 +13,21 @@ import {
 } from "./components/common/ui";
 
 const dropdownOptions = ["Option A", "Option B", "Option C"];
+const colorSwatches = [
+  { label: "Primary", value: COLORS.primary },
+  { label: "Primary Dark", value: COLORS.primaryDark },
+  { label: "Primary Soft", value: COLORS.primarySoft },
+  { label: "Success", value: COLORS.success },
+  { label: "Success Tint", value: COLORS.successTint },
+  { label: "Warning", value: COLORS.warning },
+  { label: "Warning Deep", value: COLORS.warningDeep },
+  { label: "Danger", value: COLORS.danger },
+  { label: "Info", value: COLORS.info },
+  { label: "Muted", value: COLORS.muted },
+  { label: "Border", value: COLORS.border },
+  { label: "Background", value: COLORS.background },
+  { label: "Surface", value: COLORS.surface },
+];
 
 const ComponentsViewScreen = () => {
   const router = useRouter();
@@ -100,6 +115,16 @@ const ComponentsViewScreen = () => {
             />
           ))}
         </View>
+
+        <Text style={styles.sectionTitle}>Colors</Text>
+        <View style={styles.colorsGrid}>
+          {colorSwatches.map((swatch) => (
+            <View key={swatch.label} style={styles.swatchCard}>
+              <View style={[styles.swatch, { backgroundColor: swatch.value }]} />
+              <Text style={styles.swatchLabel}>{swatch.label}</Text>
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
@@ -172,5 +197,26 @@ const styles = StyleSheet.create({
   badge: {
     marginRight: 10,
     marginBottom: 10,
+  },
+  colorsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  swatchCard: {
+    width: "48%",
+    marginRight: "4%",
+    marginBottom: 12,
+  },
+  swatch: {
+    height: 44,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  swatchLabel: {
+    marginTop: 6,
+    color: COLORS.muted,
+    fontSize: 12,
+    fontWeight: "600",
   },
 });

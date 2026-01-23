@@ -46,7 +46,7 @@ const CustomerAddScreen = () => {
               <Icon source="account" size={34} color={COLORS.muted} />
             </View>
             <View style={styles.cameraBadge}>
-              <Icon source="camera" size={16} color="white" />
+              <Icon source="camera" size={16} color={COLORS.white} />
             </View>
           </View>
           <Text style={styles.photoText}>Take Photo</Text>

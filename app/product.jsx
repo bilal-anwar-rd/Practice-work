@@ -49,7 +49,7 @@ const recentActivity = [
     amount: "-3",
     icon: "cart-outline",
     iconTint: COLORS.orangeTint,
-    iconColor: "#C66A10",
+    iconColor: COLORS.warningDark,
   },
 ];
 
@@ -137,8 +137,18 @@ const ProductScreen = () => {
             background={COLORS.greenTint}
             textColor={COLORS.success}
           />
-          <TagPill icon="cube-outline" label={product.units} background="#E8F1F8" textColor="#0E6F8E" />
-          <TagPill icon="tag-outline" label={product.category} background="#EEF1F5" textColor={COLORS.muted} />
+          <TagPill
+            icon="cube-outline"
+            label={product.units}
+            background={COLORS.infoTint}
+            textColor={COLORS.info}
+          />
+          <TagPill
+            icon="tag-outline"
+            label={product.category}
+            background={COLORS.neutralTint}
+            textColor={COLORS.muted}
+          />
         </View>
 
         <Card mode="elevated" style={styles.statsCard}>
@@ -290,7 +300,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   activityIconInner: {
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
   },
   activityInfo: {
     flex: 1,

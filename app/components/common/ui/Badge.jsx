@@ -45,21 +45,21 @@ const styles = StyleSheet.create({
   inactive: {
     backgroundColor: COLORS.surface,
     borderWidth: 1,
-    borderColor: "#DDE3EA",
+    borderColor: COLORS.borderLight,
   },
   active: {
-    backgroundColor: "#0F151A",
-    borderColor: "#0F151A",
+    backgroundColor: COLORS.neutral,
+    borderColor: COLORS.neutral,
   },
   text: {
     fontSize: 14,
     fontWeight: "600",
   },
   textInactive: {
-    color: "#7A8693",
+    color: COLORS.mutedAlt,
   },
   textActive: {
-    color: "#FFFFFF",
+    color: COLORS.white,
     fontWeight: "700",
   },
 });
