@@ -89,24 +89,20 @@ const CustomerEditScreen = () => {
           />
         </View>
 
-        <View style={styles.actions}>
-          <UIButton
-            style={styles.saveButton}
-            onPress={() => showToast("Changes saved")}
-            icon="check-circle-outline"
-          >
-            Save Changes
-          </UIButton>
-          <UIButton
-            variant="ghost"
-            onPress={() => showToast("Delete customer")}
-            textColor={COLORS.danger}
-            icon="trash-can-outline"
-          >
-            Delete Customer
-          </UIButton>
-        </View>
       </ScrollView>
+
+      <View style={styles.actionsBar}>
+        <UIButton
+          style={styles.saveButton}
+          onPress={() => showToast("Changes saved")}
+          icon="check-circle-outline"
+        >
+          Save Changes
+        </UIButton>
+        <UIButton variant="ghostPrimary" onPress={() => router.back()}>
+          Cancel
+        </UIButton>
+      </View>
 
       <Snackbar
         visible={snackbar.visible}
@@ -199,12 +195,17 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     height: 56,
   },
-  actions: {
-    marginTop: 22,
-    alignItems: "center",
-  },
   saveButton: {
     borderRadius: 14,
     alignSelf: "stretch",
+  },
+  actionsBar: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: COLORS.background,
   },
 });

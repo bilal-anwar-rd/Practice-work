@@ -10,22 +10,34 @@ const VARIANTS = {
     textColor: COLORS.white,
     style: null,
   },
-  secondary: {
-    mode: "contained-tonal",
-    buttonColor: COLORS.surface,
-    textColor: COLORS.primary,
-    style: { borderWidth: 1, borderColor: COLORS.border },
+  smallPrimary: {
+    mode: "contained",
+    buttonColor: COLORS.primary,
+    textColor: COLORS.white,
+    style: null,
   },
   outline: {
     mode: "outlined",
-    buttonColor: COLORS.transparent,
-    textColor: COLORS.text,
+    buttonColor: COLORS.white,
+    textColor: COLORS.primary,
+    style: { borderColor: COLORS.border },
+  },
+  smallOutlinePrimary: {
+    mode: "outlined",
+    buttonColor: COLORS.white,
+    textColor: COLORS.primary,
     style: { borderColor: COLORS.border },
   },
   ghost: {
     mode: "text",
     buttonColor: COLORS.transparent,
     textColor: COLORS.muted,
+    style: null,
+  },
+  ghostPrimary: {
+    mode: "text",
+    buttonColor: COLORS.transparent,
+    textColor: COLORS.primary,
     style: null,
   },
   danger: {
@@ -71,9 +83,6 @@ export default UIButton;
 const styles = StyleSheet.create({
   base: {
     borderRadius: 14,
-  },
-  content: {
-    paddingHorizontal: 18,
   },
   label: {
     fontWeight: "700",

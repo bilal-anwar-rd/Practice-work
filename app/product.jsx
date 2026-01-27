@@ -1,23 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
+  Share,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from "react-native";
-import {
-  Appbar,
-  Avatar,
-  Button,
-  Card,
-  Chip,
-  Surface,
-  Text,
-} from "react-native-paper";
+import { Appbar, Avatar, Card, Chip, Surface, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
 import SectionHeader from "./components/common/SectionHeader";
+import { UIButton } from "./components/common/ui";
 
 const product = {
   name: "Vintage Leather Satchel",
@@ -105,14 +100,36 @@ const ProductScreen = () => {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const maxWidthStyle = width >= 768 ? styles.maxWidth : null;
+  const [isFavorite, setIsFavorite] = useState(false);
+  const addToFavorite = () => {
+    setIsFavorite(true);
+  };
+  const removeFromFavorite = () => {
+    setIsFavorite(false);
+  };
+  const shareProduct = async () => {
+    try {
+      await Share.share({
+        message: `${product.name} - ${product.sellingPrice}`,
+      });
+    } catch (error) {
+      // no-op: share cancelled or failed
+    }
+  };
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFromFavorite();
+      return;
+    }
+    addToFavorite();
+  };
 
   return (
     <View style={styles.root}>
       <Appbar.Header mode="small" style={styles.appbar}>
         <Appbar.Action icon="chevron-left" onPress={() => router.back()} />
         <Appbar.Content title="Product Details" titleStyle={styles.appbarTitle} />
-        <Appbar.Action icon="share-variant" onPress={() => {}} />
-        <Appbar.Action icon="dots-vertical" onPress={() => {}} />
+        <Appbar.Action icon="share-variant" onPress={shareProduct} />
       </Appbar.Header>
 
       <ScrollView contentContainerStyle={[styles.content, maxWidthStyle]}>
@@ -122,12 +139,21 @@ const ProductScreen = () => {
           <Text variant="titleLarge" style={styles.title}>
             {product.name}
           </Text>
-          <Avatar.Icon
-            size={36}
-            icon="heart-outline"
-            color={COLORS.primary}
-            style={styles.heart}
-          />
+          <TouchableOpacity
+            onPress={toggleFavorite}
+            accessibilityRole="button"
+            accessibilityLabel={
+              isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
+            activeOpacity={0.8}
+          >
+            <Avatar.Icon
+              size={36}
+              icon={isFavorite ? "heart" : "heart-outline"}
+              color={COLORS.primary}
+              style={styles.heart}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.tagsRow}>
@@ -175,26 +201,24 @@ const ProductScreen = () => {
       </ScrollView>
 
       <Surface elevation={6} style={styles.bottomBar}>
-        <Button
-          mode="outlined"
+        <UIButton
+          variant="smallOutlinePrimary"
+          size="sm"
           icon="pencil"
           style={styles.bottomButton}
-          labelStyle={styles.bottomButtonLabel}
-          textColor={COLORS.text}
           onPress={() => router.push("/product-edit")}
         >
           Edit Product
-        </Button>
-        <Button
-          mode="contained"
+        </UIButton>
+        <UIButton
+          variant="smallPrimary"
+          size="sm"
           icon="plus-circle"
           style={[styles.bottomButton, styles.bottomPrimary]}
-          labelStyle={styles.bottomButtonLabel}
-          buttonColor={COLORS.primary}
           onPress={() => router.push("/adjust-stock")}
         >
           Adjust Stock
-        </Button>
+        </UIButton>
       </Surface>
     </View>
   );
@@ -344,8 +368,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
-  },
-  bottomButtonLabel: {
-    fontWeight: "700",
   },
 });
