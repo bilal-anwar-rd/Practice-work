@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.borderLight,
   },
   active: {
-    backgroundColor: COLORS.neutral,
-    borderColor: COLORS.neutral,
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
   text: {
     fontSize: 14,

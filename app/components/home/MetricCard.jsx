@@ -6,7 +6,7 @@ import { COLORS } from "../common/colors";
 const MetricCard = ({ title, value, icon, change, onPress }) => {
   return (
     <Card mode="elevated" style={styles.card} onPress={onPress}>
-      <Card.Content>
+      <Card.Content style={styles.content}>
         <View style={styles.header}>
           <Text variant="titleMedium" style={styles.mutedText}>
             {title}
@@ -18,7 +18,13 @@ const MetricCard = ({ title, value, icon, change, onPress }) => {
             style={styles.icon}
           />
         </View>
-        <Text variant="headlineMedium" style={styles.titleText}>
+        <Text
+          variant="headlineMedium"
+          style={styles.titleText}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.7}
+        >
           {value}
         </Text>
         <View style={styles.badge}>
@@ -42,6 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.surface,
     borderRadius: 18,
+  },
+  content: {
+    paddingVertical: 16,
+    paddingHorizontal: 16,
   },
   header: {
     flexDirection: "row",

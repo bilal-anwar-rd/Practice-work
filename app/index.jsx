@@ -12,7 +12,6 @@ import { COLORS } from "./components/common/colors";
 
 const HomeScreen = () => {
   const { width } = useWindowDimensions();
-  const isNarrow = width < 360;
   const [snackbar, setSnackbar] = useState({ visible: false, message: "" });
   const router = useRouter();
 
@@ -26,6 +25,10 @@ const HomeScreen = () => {
     }
     if (label === "Inventory") {
       router.push("/inventory");
+      return;
+    }
+    if (label === "Reports") {
+      router.push("/reports");
       return;
     }
     showToast(label);
@@ -54,8 +57,8 @@ const HomeScreen = () => {
       <HeaderBar onBellPress={() => showToast("Notifications")} />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={[styles.metricRow, isNarrow && styles.metricColumn]}>
-          <View style={[styles.metricWrap, !isNarrow && styles.metricLeft]}>
+        <View style={styles.metricRow}>
+          <View style={[styles.metricWrap, styles.metricLeft]}>
             <MetricCard
               title="Today's Sales"
               value="$1,240.50"
@@ -75,7 +78,7 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <PrimaryAction onPress={() => showToast("New Sale")} />
+        <PrimaryAction label="Create Invoice" onPress={() => router.push("/invoice")} />
         <QuickActions
           containerWidth={width - 40}
           onActionPress={handleQuickActionPress}
@@ -109,13 +112,11 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 160,
+    paddingBottom: 110,
   },
   metricRow: {
     flexDirection: "row",
-  },
-  metricColumn: {
-    flexDirection: "column",
+    flexWrap: "nowrap",
   },
   metricWrap: {
     flex: 1,

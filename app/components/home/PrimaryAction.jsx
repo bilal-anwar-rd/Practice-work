@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import { COLORS } from "../common/colors";
 
-const PrimaryAction = ({ onPress }) => {
+const PrimaryAction = ({ onPress, label = "New Sale" }) => {
   return (
     <Button
       mode="contained"
@@ -13,7 +13,7 @@ const PrimaryAction = ({ onPress }) => {
       buttonColor={COLORS.primary}
       onPress={onPress}
     >
-      New Sale
+      {label}
     </Button>
   );
 };
