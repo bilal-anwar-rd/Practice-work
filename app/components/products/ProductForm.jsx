@@ -35,6 +35,7 @@ const ProductForm = ({
   onSubmit = () => {},
   onCancel = () => {},
   onDelete = null,
+  useFixedFooter = false,
 }) => {
   const [name, setName] = useState(initial.name || "");
   const [category, setCategory] = useState(initial.category || "");
@@ -80,8 +81,28 @@ const ProductForm = ({
     initial.image ||
     "https://images.unsplash.com/photo-1612810432635-6815c0a1dd35?w=800";
 
-  return (
-    <ScrollView contentContainerStyle={styles.formContent}>
+  const actionButtons = (
+    <>
+      <UIButton
+        style={styles.saveButton}
+        onPress={handleSubmit}
+        icon={isAddMode ? "check-circle-outline" : undefined}
+      >
+        {isAddMode ? "Save Product" : "Save Changes"}
+      </UIButton>
+      {isAddMode ? (
+        <UIButton
+          variant={useFixedFooter ? "ghostPrimary" : "ghost"}
+          onPress={onCancel}
+        >
+          Cancel
+        </UIButton>
+      ) : null}
+    </>
+  );
+
+  const formBody = (
+    <>
       {isAddMode ? (
         <Surface style={styles.uploadCard} elevation={0}>
           <TouchableOpacity style={styles.uploadBox} activeOpacity={0.9}>
@@ -162,7 +183,7 @@ const ProductForm = ({
             <Text style={styles.label}>Cost Price</Text>
             <InputField
               value={costPrice}
-            onChangeText={setCostPrice}
+              onChangeText={setCostPrice}
               placeholder="$ 0.00"
               keyboardType="decimal-pad"
               style={[styles.input, styles.inputLg]}
@@ -171,8 +192,8 @@ const ProductForm = ({
           <View style={styles.col}>
             <Text style={styles.label}>Selling Price</Text>
             <InputField
-            value={sellingPrice}
-            onChangeText={setSellingPrice}
+              value={sellingPrice}
+              onChangeText={setSellingPrice}
               placeholder="$ 0.00"
               keyboardType="decimal-pad"
               style={[styles.input, styles.inputLg]}
@@ -184,7 +205,7 @@ const ProductForm = ({
             <Text style={styles.label}>Tax Rate (%)</Text>
             <InputField
               value={taxRate}
-            onChangeText={setTaxRate}
+              onChangeText={setTaxRate}
               placeholder="e.g. 5"
               keyboardType="decimal-pad"
               style={[styles.input, styles.inputLg]}
@@ -214,7 +235,7 @@ const ProductForm = ({
             <Text style={styles.label}>Opening Stock</Text>
             <InputField
               value={openingStock}
-            onChangeText={setOpeningStock}
+              onChangeText={setOpeningStock}
               placeholder="0"
               keyboardType="numeric"
               style={[styles.input, styles.inputLg]}
@@ -234,20 +255,27 @@ const ProductForm = ({
           Delete Product
         </UIButton>
       ) : null}
+    </>
+  );
 
-      <View style={styles.actions}>
-        <UIButton
-          style={styles.saveButton}
-          onPress={handleSubmit}
+  if (useFixedFooter) {
+    return (
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={[styles.formContent, styles.formContentWithFooter]}
         >
-          {isAddMode ? "Save Product" : "Save Changes"}
-        </UIButton>
-        {isAddMode ? (
-          <UIButton variant="ghost" onPress={onCancel}>
-            Cancel
-          </UIButton>
-        ) : null}
+          {formBody}
+        </ScrollView>
+
+        <View style={styles.actionsBar}>{actionButtons}</View>
       </View>
+    );
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.formContent}>
+      {formBody}
+      <View style={styles.actions}>{actionButtons}</View>
     </ScrollView>
   );
 };
@@ -255,9 +283,15 @@ const ProductForm = ({
 export default ProductForm;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   formContent: {
     paddingHorizontal: 20,
     paddingBottom: 160,
+  },
+  formContentWithFooter: {
+    paddingBottom: 200,
   },
   heroCard: {
     borderRadius: 18,
@@ -362,6 +396,15 @@ const styles = StyleSheet.create({
   },
   actions: {
     marginTop: 20,
+  },
+  actionsBar: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: COLORS.background,
   },
   saveButton: {
     borderRadius: 14,

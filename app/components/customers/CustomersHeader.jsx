@@ -11,7 +11,6 @@ const CustomersHeader = ({
     <Appbar.Header mode="small" style={styles.appbar}>
       <Appbar.Action icon="chevron-left" onPress={onBackPress} />
       <Appbar.Content title="Customers" titleStyle={styles.title} />
-      <Appbar.Action icon="dots-horizontal" onPress={onMenuPress} />
     </Appbar.Header>
   );
 };

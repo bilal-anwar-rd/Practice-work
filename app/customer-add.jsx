@@ -112,19 +112,20 @@ const CustomerAddScreen = () => {
           />
         </View>
 
-        <View style={styles.actions}>
-          <UIButton
-            style={styles.saveButton}
-            onPress={handleSave}
-            icon="check-circle-outline"
-          >
-            Save Customer
-          </UIButton>
-          <UIButton variant="ghost" onPress={() => router.back()}>
-            Cancel
-          </UIButton>
-        </View>
       </ScrollView>
+
+      <View style={styles.actionsBar}>
+        <UIButton
+          style={styles.saveButton}
+          onPress={handleSave}
+          icon="check-circle-outline"
+        >
+          Save Customer
+        </UIButton>
+        <UIButton variant="ghostPrimary" onPress={() => router.back()}>
+          Cancel
+        </UIButton>
+      </View>
 
       <Snackbar
         visible={snackbar.visible}
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: 20,
-    paddingBottom: 160,
+    paddingBottom: 200,
   },
   photoBlock: {
     marginTop: 8,
@@ -238,8 +239,14 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     height: 56,
   },
-  actions: {
-    marginTop: 20,
+  actionsBar: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: COLORS.background,
   },
   saveButton: {
     borderRadius: 14,

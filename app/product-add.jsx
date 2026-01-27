@@ -23,6 +23,7 @@ const ProductAddScreen = () => {
         initial={{}}
         onSubmit={() => showToast("Product saved")}
         onCancel={() => router.back()}
+        useFixedFooter
       />
 
       <Snackbar

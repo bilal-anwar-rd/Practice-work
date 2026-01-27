@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Appbar, Icon, Surface, Text } from "react-native-paper";
+import { Appbar, Icon, Menu, Surface, Text } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
 import { UIButton } from "./components/common/ui";
@@ -14,7 +14,6 @@ const CustomerDetailScreen = () => {
       <Appbar.Header mode="small" style={styles.appbar}>
         <Appbar.Action icon="chevron-left" onPress={() => router.back()} />
         <Appbar.Content title="Customer Profile" titleStyle={styles.title} />
-        <Appbar.Action icon="dots-horizontal" onPress={() => {}} />
       </Appbar.Header>
 
       <ScrollView contentContainerStyle={styles.content}>
@@ -155,24 +154,27 @@ const CustomerDetailScreen = () => {
         </Surface>
       </ScrollView>
 
-      <View style={styles.footer}>
+      <Surface elevation={6} style={styles.bottomBar}>
         <UIButton
-          variant="outline"
-          style={styles.footerButton}
+          variant="smallOutlinePrimary"
+          size="sm"
+          style={styles.bottomButton}
           textColor={COLORS.primary}
           icon="pencil"
           onPress={() => router.push("/customer-edit")}
         >
-          Edit Profile
+          Edit Customer
         </UIButton>
         <UIButton
-          style={[styles.footerButton, styles.footerPrimary]}
+          variant="smallPrimary"
+          size="sm"
+          style={[styles.bottomButton, styles.bottomPrimary]}
           icon="cart-outline"
           onPress={() => {}}
         >
           New Sale
         </UIButton>
-      </View>
+      </Surface>
     </View>
   );
 };
@@ -386,19 +388,27 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: COLORS.muted,
   },
-  footer: {
+  bottomBar: {
     position: "absolute",
-    left: 20,
-    right: 20,
-    bottom: 24,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: COLORS.surface,
   },
-  footerButton: {
+  bottomButton: {
     flex: 1,
-    borderRadius: 16,
-    marginRight: 12,
+    marginHorizontal: 6,
+    borderRadius: 12,
   },
-  footerPrimary: {
-    marginRight: 0,
+  bottomPrimary: {
+    shadowColor: COLORS.primaryDark,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
   },
 });
