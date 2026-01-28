@@ -13,6 +13,13 @@ const quickActions = [
     color: COLORS.primary,
   },
   {
+    key: "warehouses",
+    label: "Warehouses",
+    icon: "warehouse",
+    tint: COLORS.greenTint,
+    color: COLORS.successTeal,
+  },
+  {
     key: "inventory",
     label: "Inventory",
     icon: "archive-outline",
