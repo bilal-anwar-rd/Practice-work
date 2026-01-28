@@ -27,6 +27,13 @@ const quickActions = [
     color: COLORS.warningDeep,
   },
   {
+    key: "suppliers",
+    label: "Suppliers",
+    icon: "truck-delivery-outline",
+    tint: COLORS.greenTint,
+    color: COLORS.success,
+  },
+  {
     key: "customers",
     label: "Customers",
     icon: "account-group-outline",
