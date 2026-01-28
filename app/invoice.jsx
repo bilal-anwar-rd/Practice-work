@@ -39,6 +39,8 @@ const InvoiceScreen = () => {
   const [discountPct, setDiscountPct] = useState(10);
   const [taxPct, setTaxPct] = useState(10);
   const [promoCode, setPromoCode] = useState("");
+  const [customerQuery, setCustomerQuery] = useState("");
+  const [showCustomerDropdown, setShowCustomerDropdown] = useState(false);
 
   const subtotal = useMemo(
     () => items.reduce((sum, item) => sum + item.price * item.qty, 0),
@@ -67,6 +69,22 @@ const InvoiceScreen = () => {
       )
     );
   };
+
+  const customerOptions = useMemo(() => {
+    const customers = [
+      { id: "c-001", name: "John Doe", phone: "(555) 000-0000" },
+      { id: "c-002", name: "Emma Stone", phone: "(555) 222-1300" },
+      { id: "c-003", name: "Michael Brown", phone: "(555) 888-0190" },
+      { id: "c-004", name: "Priya Singh", phone: "(555) 341-2201" },
+    ];
+    if (!customerQuery.trim()) return customers;
+    const needle = customerQuery.toLowerCase();
+    return customers.filter(
+      (customer) =>
+        customer.name.toLowerCase().includes(needle) ||
+        customer.phone.toLowerCase().includes(needle)
+    );
+  }, [customerQuery]);
 
   return (
     <View style={styles.root}>
@@ -185,9 +203,38 @@ const InvoiceScreen = () => {
             placeholder="Search or select customer"
             leftIcon="account-search"
             rightIcon="chevron-down"
+            value={customerQuery}
+            onChangeText={(value) => {
+              setCustomerQuery(value);
+              setShowCustomerDropdown(true);
+            }}
+            onFocus={() => setShowCustomerDropdown(true)}
             style={styles.customerInput}
           />
-          <TouchableOpacity style={styles.addCustomerButton}>
+          {showCustomerDropdown && customerOptions.length > 0 && (
+            <Surface elevation={2} style={styles.customerDropdown}>
+              {customerOptions.map((customer, index) => (
+                <TouchableOpacity
+                  key={customer.id}
+                  style={[
+                    styles.customerOption,
+                    index === customerOptions.length - 1 && styles.customerOptionLast,
+                  ]}
+                  onPress={() => {
+                    setCustomerQuery(customer.name);
+                    setShowCustomerDropdown(false);
+                  }}
+                >
+                  <Text style={styles.customerOptionName}>{customer.name}</Text>
+                  <Text style={styles.customerOptionMeta}>{customer.phone}</Text>
+                </TouchableOpacity>
+              ))}
+            </Surface>
+          )}
+          <TouchableOpacity
+            style={styles.addCustomerButton}
+            onPress={() => router.push("/customer-add")}
+          >
             <Text style={styles.addCustomerText}>+ Add New Customer</Text>
           </TouchableOpacity>
         </Surface>
@@ -247,7 +294,7 @@ const InvoiceScreen = () => {
           Proceed to Payment
         </UIButton>
         <UIButton
-          variant="ghostPrimary"
+          variant="ghost"
           size="md"
           icon="archive-outline"
           onPress={() => {}}
@@ -470,6 +517,32 @@ const styles = StyleSheet.create({
   customerInput: {
     marginBottom: 10,
   },
+  customerDropdown: {
+    borderRadius: 12,
+    backgroundColor: COLORS.surface,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    marginBottom: 10,
+    overflow: "hidden",
+  },
+  customerOption: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.borderLight,
+  },
+  customerOptionLast: {
+    borderBottomWidth: 0,
+  },
+  customerOptionName: {
+    color: COLORS.text,
+    fontWeight: "700",
+  },
+  customerOptionMeta: {
+    color: COLORS.muted,
+    fontSize: 12,
+    marginTop: 2,
+  },
   addCustomerButton: {
     borderWidth: 1,
     borderStyle: "dashed",
@@ -558,6 +631,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   secondaryLabel: {
+    color: COLORS.primary,
     fontWeight: "700",
   },
 });

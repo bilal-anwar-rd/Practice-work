@@ -15,6 +15,7 @@ const product = {
   sellingPrice: "$ 120.00",
   taxRate: "12",
   trackStock: true,
+  lowStockThreshold: "6",
   image: "https://images.unsplash.com/photo-1612810432635-6815c0a1dd35?w=800",
 };
 
@@ -38,7 +39,8 @@ const ProductEditScreen = () => {
         mode="edit"
         initial={product}
         onSubmit={() => showToast("Product saved")}
-        onDelete={() => showToast("Product deleted")}
+        onCancel={() => router.back()}
+        useFixedFooter
       />
 
       <Snackbar

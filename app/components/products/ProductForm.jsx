@@ -53,6 +53,9 @@ const ProductForm = ({
   const [openingStock, setOpeningStock] = useState(
     initial.openingStock !== undefined ? String(initial.openingStock) : ""
   );
+  const [lowStockThreshold, setLowStockThreshold] = useState(
+    initial.lowStockThreshold !== undefined ? String(initial.lowStockThreshold) : ""
+  );
 
   const margin = useMemo(() => {
     const cp = parseFloat(costPrice.replace(/[^0-9.]/g, ""));
@@ -73,6 +76,7 @@ const ProductForm = ({
       taxRate,
       trackStock,
       openingStock,
+      lowStockThreshold,
     });
   };
 
@@ -90,7 +94,7 @@ const ProductForm = ({
       >
         {isAddMode ? "Save Product" : "Save Changes"}
       </UIButton>
-      {isAddMode ? (
+      {onCancel ? (
         <UIButton
           variant={useFixedFooter ? "ghostPrimary" : "ghost"}
           onPress={onCancel}
@@ -230,17 +234,31 @@ const ProductForm = ({
           </View>
           <UISwitch value={trackStock} onValueChange={setTrackStock} />
         </View>
-        {isAddMode ? (
-          <View style={styles.fieldBlock}>
-            <Text style={styles.label}>Opening Stock</Text>
-            <InputField
-              value={openingStock}
-              onChangeText={setOpeningStock}
-              placeholder="0"
-              keyboardType="numeric"
-              style={[styles.input, styles.inputLg]}
-            />
-          </View>
+        {trackStock ? (
+          <>
+            {isAddMode ? (
+              <View style={styles.fieldBlock}>
+                <Text style={styles.label}>Opening Stock</Text>
+                <InputField
+                  value={openingStock}
+                  onChangeText={setOpeningStock}
+                  placeholder="0"
+                  keyboardType="numeric"
+                  style={[styles.input, styles.inputLg]}
+                />
+              </View>
+            ) : null}
+            <View style={styles.fieldBlock}>
+              <Text style={styles.label}>Low Stock Threshold</Text>
+              <InputField
+                value={lowStockThreshold}
+                onChangeText={setLowStockThreshold}
+                placeholder="0"
+                keyboardType="numeric"
+                style={[styles.input, styles.inputLg]}
+              />
+            </View>
+          </>
         ) : null}
       </Surface>
 

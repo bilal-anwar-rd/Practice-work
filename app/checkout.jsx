@@ -1,11 +1,15 @@
 import React, { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
-import { Appbar, Surface, Text, TextInput } from "react-native-paper";
+import { Appbar, Icon, Surface, Text, TextInput } from "react-native-paper";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { COLORS } from "./components/common/colors";
 import UIButton from "./components/common/ui/Button";
 
-const PAYMENT_METHODS = ["Cash", "Card", "Split"];
+const PAYMENT_METHODS = [
+  { label: "Cash", icon: "cash" },
+  { label: "Card", icon: "credit-card-outline" },
+  { label: "Split", icon: "call-split" },
+];
 const QUICK_AMOUNTS = ["EXACT", "$125", "$130", "$150"];
 
 const formatMoney = (value) => `$${Number(value).toFixed(2)}`;
@@ -25,6 +29,22 @@ const CheckoutScreen = () => {
 
   const [method, setMethod] = useState("Cash");
   const [tendered, setTendered] = useState(parsedTotal.toFixed(2));
+  const [splitCash, setSplitCash] = useState(parsedTotal.toFixed(2));
+  const [splitCard, setSplitCard] = useState("0.00");
+  const totalTendered = useMemo(() => {
+    if (method === "Split") {
+      const cashValue = Number(splitCash);
+      const cardValue = Number(splitCard);
+      const safeCash = Number.isNaN(cashValue) ? 0 : cashValue;
+      const safeCard = Number.isNaN(cardValue) ? 0 : cardValue;
+      return safeCash + safeCard;
+    }
+    const tenderedValue = Number(tendered);
+    return Number.isNaN(tenderedValue) ? 0 : tenderedValue;
+  }, [method, splitCash, splitCard, tendered]);
+  const changeDue = useMemo(() => {
+    return Math.max(totalTendered - parsedTotal, 0);
+  }, [parsedTotal, totalTendered]);
 
   return (
     <View style={styles.root}>
@@ -61,19 +81,26 @@ const CheckoutScreen = () => {
         <Text style={styles.sectionTitle}>Select Payment Method</Text>
         <View style={styles.methodsRow}>
           {PAYMENT_METHODS.map((option, idx) => {
-            const active = method === option;
+            const active = method === option.label;
             return (
               <TouchableOpacity
-                key={option}
+                key={option.label}
                 style={[
                   styles.methodCard,
                   active && styles.methodCardActive,
                   idx === PAYMENT_METHODS.length - 1 && styles.methodLast,
                 ]}
-                onPress={() => setMethod(option)}
+                onPress={() => setMethod(option.label)}
               >
+                <View style={styles.methodIconWrap}>
+                  <Icon
+                    source={option.icon}
+                    size={22}
+                    color={active ? COLORS.primary : COLORS.muted}
+                  />
+                </View>
                 <Text style={[styles.methodLabel, active && styles.methodLabelActive]}>
-                  {option}
+                  {option.label}
                 </Text>
               </TouchableOpacity>
             );
@@ -81,73 +108,113 @@ const CheckoutScreen = () => {
         </View>
 
         <Surface elevation={1} style={styles.tenderCard}>
-          <Text style={styles.sectionLabel}>Amount Tendered</Text>
-          <TextInput
-            mode="outlined"
-            value={tendered}
-            onChangeText={setTendered}
-            keyboardType="decimal-pad"
-            left={<TextInput.Affix text="$" />}
-            outlineColor={COLORS.border}
-            activeOutlineColor={COLORS.primary}
-            style={styles.tenderInput}
-            outlineStyle={styles.tenderOutline}
-            theme={{ roundness: 14 }}
-          />
-          <View style={styles.quickRow}>
-            {QUICK_AMOUNTS.map((amt) => (
-              <TouchableOpacity
-                key={amt}
-                style={styles.quickPill}
-                onPress={() => {
-                  if (amt === "EXACT") {
-                    setTendered(parsedTotal.toFixed(2));
-                  } else {
-                    const num = Number(amt.replace("$", ""));
-                    setTendered(num.toFixed(2));
-                  }
-                }}
-              >
-                <Text style={styles.quickText}>{amt}</Text>
-              </TouchableOpacity>
-            ))}
+          <Text style={styles.sectionLabel}>
+            {method === "Split" ? "Split Payment" : "Amount Tendered"}
+          </Text>
+          {method === "Split" ? (
+            <View style={styles.splitGroup}>
+              <View style={styles.splitField}>
+                <Text style={styles.splitLabel}>Cash Amount</Text>
+                <TextInput
+                  mode="outlined"
+                  value={splitCash}
+                  onChangeText={setSplitCash}
+                  keyboardType="decimal-pad"
+                  left={<TextInput.Affix text="$" />}
+                  outlineColor={COLORS.border}
+                  activeOutlineColor={COLORS.primary}
+                  style={styles.tenderInput}
+                  outlineStyle={styles.tenderOutline}
+                  theme={{ roundness: 14 }}
+                />
+              </View>
+              <View style={styles.splitField}>
+                <Text style={styles.splitLabel}>Card Amount</Text>
+                <TextInput
+                  mode="outlined"
+                  value={splitCard}
+                  onChangeText={setSplitCard}
+                  keyboardType="decimal-pad"
+                  left={<TextInput.Affix text="$" />}
+                  outlineColor={COLORS.border}
+                  activeOutlineColor={COLORS.primary}
+                  style={styles.tenderInput}
+                  outlineStyle={styles.tenderOutline}
+                  theme={{ roundness: 14 }}
+                />
+              </View>
+            </View>
+          ) : (
+            <>
+              <TextInput
+                mode="outlined"
+                value={tendered}
+                onChangeText={setTendered}
+                keyboardType="decimal-pad"
+                left={<TextInput.Affix text="$" />}
+                outlineColor={COLORS.border}
+                activeOutlineColor={COLORS.primary}
+                style={styles.tenderInput}
+                outlineStyle={styles.tenderOutline}
+                theme={{ roundness: 14 }}
+              />
+              <View style={styles.quickRow}>
+                {QUICK_AMOUNTS.map((amt) => (
+                  <TouchableOpacity
+                    key={amt}
+                    style={styles.quickPill}
+                    onPress={() => {
+                      if (amt === "EXACT") {
+                        setTendered(parsedTotal.toFixed(2));
+                      } else {
+                        const num = Number(amt.replace("$", ""));
+                        setTendered(num.toFixed(2));
+                      }
+                    }}
+                  >
+                    <Text style={styles.quickText}>{amt}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </>
+          )}
+          <View style={styles.dueRow}>
+            <Text style={styles.dueLabel}>Change Due</Text>
+            <Text style={styles.dueValue}>{formatMoney(changeDue)}</Text>
           </View>
         </Surface>
 
+      </ScrollView>
+
+      <View style={styles.actionsBar}>
         <UIButton
           variant="primary"
           size="lg"
           icon="check"
-          onPress={() => {}}
+          onPress={() =>
+            router.push({
+              pathname: "/transaction-result",
+              params: {
+                total: parsedTotal.toFixed(2),
+              },
+            })
+          }
           style={styles.primaryButton}
           labelStyle={styles.primaryLabel}
         >
           Complete Payment & Print
         </UIButton>
-
-        <View style={styles.secondaryRow}>
-          <UIButton
-            variant="ghost"
-            size="md"
-            icon="content-save-outline"
-            onPress={() => {}}
-            style={styles.secondaryButton}
-            labelStyle={styles.secondaryLabel}
-          >
-            Save Draft
-          </UIButton>
-          <UIButton
-            variant="ghost"
-            size="md"
-            icon="whatsapp"
-            onPress={() => {}}
-            style={styles.secondaryButton}
-            labelStyle={styles.secondaryLabel}
-          >
-            WhatsApp
-          </UIButton>
-        </View>
-      </ScrollView>
+        <UIButton
+          variant="ghost"
+          size="md"
+          icon="close"
+          onPress={() => router.back()}
+          style={styles.cancelButton}
+          labelStyle={styles.cancelLabel}
+        >
+          Cancel
+        </UIButton>
+      </View>
     </View>
   );
 };
@@ -174,7 +241,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    paddingBottom: 80,
+    paddingBottom: 200,
   },
   sectionLabel: {
     color: COLORS.muted,
@@ -246,6 +313,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 10,
   },
+  methodIconWrap: {
+    width: 34,
+    height: 34,
+    borderRadius: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.neutralSoft,
+    marginBottom: 6,
+  },
   methodLast: {
     marginRight: 0,
   },
@@ -289,8 +365,48 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: COLORS.muted,
   },
+  splitGroup: {
+    gap: 12,
+  },
+  splitField: {
+    marginBottom: 4,
+  },
+  splitLabel: {
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: 0.6,
+    color: COLORS.muted,
+    marginBottom: 6,
+  },
+  dueRow: {
+    marginTop: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 14,
+    backgroundColor: COLORS.primaryTint,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  dueLabel: {
+    color: COLORS.primary,
+    fontWeight: "700",
+  },
+  dueValue: {
+    color: COLORS.primary,
+    fontWeight: "800",
+    fontSize: 16,
+  },
+  actionsBar: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: COLORS.background,
+  },
   primaryButton: {
-    marginTop: 4,
     borderRadius: 16,
     backgroundColor: COLORS.primary,
   },
@@ -298,14 +414,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "800",
   },
-  secondaryRow: {
-    flexDirection: "row",
+  cancelButton: {
     marginTop: 10,
   },
-  secondaryButton: {
-    flex: 1,
-  },
-  secondaryLabel: {
-    color: COLORS.muted,
+  cancelLabel: {
+    color: COLORS.primary,
   },
 });

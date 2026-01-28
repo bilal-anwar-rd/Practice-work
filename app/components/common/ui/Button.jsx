@@ -40,6 +40,18 @@ const VARIANTS = {
     textColor: COLORS.primary,
     style: null,
   },
+  success: {
+    mode: "contained",
+    buttonColor: COLORS.success,
+    textColor: COLORS.white,
+    style: null,
+  },
+  outlineSuccess: {
+    mode: "outlined",
+    buttonColor: COLORS.white,
+    textColor: COLORS.success,
+    style: { borderColor: COLORS.border },
+  },
   danger: {
     mode: "contained",
     buttonColor: COLORS.danger,
