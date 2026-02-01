@@ -66,7 +66,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.root}>
-      <HeaderBar onBellPress={() => showToast("Notifications")} />
+      <HeaderBar onBellPress={() => router.push("/notifications")} />
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.metricRow}>
