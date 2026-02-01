@@ -27,6 +27,13 @@ const quickActions = [
     color: COLORS.warningDeep,
   },
   {
+    key: "purchases",
+    label: "Purchases",
+    icon: "cart-arrow-down",
+    tint: COLORS.greenTint,
+    color: COLORS.successDark,
+  },
+  {
     key: "suppliers",
     label: "Suppliers",
     icon: "truck-delivery-outline",

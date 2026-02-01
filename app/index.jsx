@@ -23,6 +23,10 @@ const HomeScreen = () => {
       router.push("/customers");
       return;
     }
+    if (label === "Purchases") {
+      router.push("/purchases");
+      return;
+    }
     if (label === "Suppliers") {
       router.push("/suppliers");
       return;
