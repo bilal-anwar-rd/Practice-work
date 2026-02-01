@@ -157,7 +157,7 @@ const SettingsScreen = () => {
       <Appbar.Header mode="small" style={styles.appbar}>
         <Appbar.Action icon="chevron-left" onPress={() => router.back()} />
         <Appbar.Content title="Settings" titleStyle={styles.title} />
-        <Appbar.Action icon="account-edit" onPress={() => {}} />
+        <Appbar.Action icon="account-edit" onPress={() => router.push("/profile-edit")} />
       </Appbar.Header>
 
       <ScrollView contentContainerStyle={styles.content}>
@@ -198,12 +198,29 @@ const SettingsScreen = () => {
                 icon={item.icon}
                 tint={item.tint}
                 iconColor={item.iconColor}
-                onPress={() => {
-                  if (item.key === "help") {
-                    router.push("/componentsview");
-                  }
-                }}
-              />
+              onPress={() => {
+                if (item.key === "help") {
+                  router.push("/componentsview");
+                  return;
+                }
+                if (item.key === "tax-discounts") {
+                  router.push("/tax-discounts");
+                  return;
+                }
+                if (item.key === "subscription-plan") {
+                  router.push("/subscription");
+                  return;
+                }
+                if (item.key === "business-profile") {
+                  router.push("/business-profile");
+                  return;
+                }
+                if (item.key === "notifications") {
+                  router.push("/notification-settings");
+                  return;
+                }
+              }}
+            />
             ))}
           </View>
         ))}
